@@ -9,7 +9,7 @@ void main(List<String> args) {
 }
 
 class MyShared extends StatefulWidget {
-  MyShared({Key key}) : super(key: key);
+  MyShared({Key? key}) : super(key: key);
 
   @override
   _MySharedState createState() => _MySharedState();
