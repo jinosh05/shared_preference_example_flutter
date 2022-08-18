@@ -45,6 +45,7 @@ class MyShared extends StatefulWidget {
 
 class _MySharedState extends State<MyShared> {
   late List<TextEditingController> _controllers;
+  bool _boolVal = true;
 
   @override
   void initState() {
@@ -154,17 +155,47 @@ class _MySharedState extends State<MyShared> {
             ],
           ),
 
-          TextButton(
-              onPressed: () {
-                storeMyData("bool", true);
-              },
-              child: Text("Save Bool")),
-          RawMaterialButton(
-            onPressed: () {
-              showData("bool");
-            },
-            child: Text(" Show value"),
+          //
+          // bool Row
+          //
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    storeMyData(Keys.boolKey, _boolVal);
+                    setState(() {
+                      _boolVal = false;
+                    });
+                  },
+                  child: Text('Save Bool')),
+              SizedBox(
+                  width: inputWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Checkbox(
+                        fillColor: MaterialStateProperty.all(Colors.white),
+                        checkColor: Color(0xff2E0249),
+                        value: _boolVal,
+                        onChanged: (value) {
+                          setState(() {
+                            _boolVal = value ?? false;
+                          });
+                        },
+                      ),
+                      Text(_boolVal ? "It's true " : "It's false")
+                    ],
+                  )),
+              OutlinedButton(
+                  onPressed: () async {
+                    _boolVal = await showData(Keys.boolKey);
+                    setState(() {});
+                  },
+                  child: Text('Show Bool')),
+            ],
           ),
+
           TextButton(
               onPressed: () {
                 storeMyData("listStr", ["A", "B", "C"]);
