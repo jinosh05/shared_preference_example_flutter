@@ -122,28 +122,38 @@ class _MySharedState extends State<MyShared> {
                   child: Text('Show Integer')),
             ],
           ),
-          TextButton(
-              onPressed: () {
-                storeMyData("int", 25);
-              },
-              child: Text("Save Integer")),
-          ElevatedButton(
-            onPressed: () {
-              showData("int");
-            },
-            child: Text(" Show value"),
+
+          //
+          // double Row
+          //
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                  onPressed: () {
+                    storeMyData(Keys.doubleKey, _controllers[2].text);
+                    _controllers[2].clear();
+                  },
+                  child: Text('Save Double')),
+              SizedBox(
+                width: inputWidth,
+                child: TextField(
+                  controller: _controllers[2],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^(\d+)?\.?\d{0,2}'))
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    _controllers[2].text = await showData(Keys.doubleKey);
+                    setState(() {});
+                  },
+                  child: Text('Show Double')),
+            ],
           ),
-          TextButton(
-              onPressed: () {
-                storeMyData("double", 99.99);
-              },
-              child: Text("Save Double")),
-          MaterialButton(
-            onPressed: () {
-              showData("double");
-            },
-            child: Text(" Show value"),
-          ),
+
           TextButton(
               onPressed: () {
                 storeMyData("bool", true);
