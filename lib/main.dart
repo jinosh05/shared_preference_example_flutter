@@ -20,6 +20,10 @@ void main(List<String> args) {
             color: Color(0xffA91079),
           ),
         )),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+          primary: Color(0xffA91079),
+        )),
         inputDecorationTheme: InputDecorationTheme(
             isDense: true,
             border: outlineInputBorder,
@@ -38,6 +42,17 @@ class MyShared extends StatefulWidget {
 }
 
 class _MySharedState extends State<MyShared> {
+  late List<TextEditingController> _controllers;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllers = List.generate(
+      5,
+      (index) => TextEditingController(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -57,8 +72,11 @@ class _MySharedState extends State<MyShared> {
               OutlinedButton(onPressed: () {}, child: Text('Save String')),
               SizedBox(
                 width: inputWidth,
-                child: TextField(),
-              )
+                child: TextField(
+                  controller: _controllers[0],
+                ),
+              ),
+              ElevatedButton(onPressed: () {}, child: Text('Show String')),
             ],
           ),
           TextButton(
