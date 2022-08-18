@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preference_example/keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -67,6 +68,9 @@ class _MySharedState extends State<MyShared> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          //
+          // String Row
+          //
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -90,16 +94,33 @@ class _MySharedState extends State<MyShared> {
                   child: Text('Show String')),
             ],
           ),
-          TextButton(
-              onPressed: () {
-                storeMyData("str", "My String");
-              },
-              child: Text("Save String")),
-          OutlinedButton(
-            onPressed: () {
-              showData("str");
-            },
-            child: Text(" Show value"),
+
+          //
+          // int Row
+          //
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    storeMyData(Keys.intKey, _controllers[1].text);
+                    _controllers[1].clear();
+                  },
+                  child: Text('Save Integer')),
+              SizedBox(
+                width: inputWidth,
+                child: TextField(
+                  controller: _controllers[1],
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                ),
+              ),
+              OutlinedButton(
+                  onPressed: () async {
+                    _controllers[1].text = await showData(Keys.intKey);
+                    setState(() {});
+                  },
+                  child: Text('Show Integer')),
+            ],
           ),
           TextButton(
               onPressed: () {
