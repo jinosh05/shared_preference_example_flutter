@@ -24,7 +24,7 @@ void main(List<String> args) {
         )),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-          primary: Color(0xffA91079),
+          primary: Color(0xff2E0249),
         )),
         inputDecorationTheme: InputDecorationTheme(
             isDense: true,
@@ -63,7 +63,7 @@ class _MySharedState extends State<MyShared> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff2E0249),
+        backgroundColor: Color(0xffA91079),
         title: Text("Shared Preferences"),
       ),
       body: Column(
@@ -77,7 +77,7 @@ class _MySharedState extends State<MyShared> {
             children: [
               OutlinedButton(
                   onPressed: () {
-                    storeMyData(Keys.stringKey, _controllers[0].text);
+                    _storeValue(Keys.stringKey, _controllers[0].text);
                     _controllers[0].clear();
                   },
                   child: Text('Save String')),
@@ -89,7 +89,7 @@ class _MySharedState extends State<MyShared> {
               ),
               ElevatedButton(
                   onPressed: () async {
-                    _controllers[0].text = await showData(Keys.stringKey);
+                    _controllers[0].text = await _getValue(Keys.stringKey);
                     setState(() {});
                   },
                   child: Text('Show String')),
@@ -104,7 +104,7 @@ class _MySharedState extends State<MyShared> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    storeMyData(Keys.intKey, _controllers[1].text);
+                    _storeValue(Keys.intKey, _controllers[1].text);
                     _controllers[1].clear();
                   },
                   child: Text('Save Integer')),
@@ -117,7 +117,7 @@ class _MySharedState extends State<MyShared> {
               ),
               OutlinedButton(
                   onPressed: () async {
-                    _controllers[1].text = await showData(Keys.intKey);
+                    _controllers[1].text = await _getValue(Keys.intKey);
                     setState(() {});
                   },
                   child: Text('Show Integer')),
@@ -132,7 +132,7 @@ class _MySharedState extends State<MyShared> {
             children: [
               OutlinedButton(
                   onPressed: () {
-                    storeMyData(Keys.doubleKey, _controllers[2].text);
+                    _storeValue(Keys.doubleKey, _controllers[2].text);
                     _controllers[2].clear();
                   },
                   child: Text('Save Double')),
@@ -148,7 +148,7 @@ class _MySharedState extends State<MyShared> {
               ),
               ElevatedButton(
                   onPressed: () async {
-                    _controllers[2].text = await showData(Keys.doubleKey);
+                    _controllers[2].text = await _getValue(Keys.doubleKey);
                     setState(() {});
                   },
                   child: Text('Show Double')),
@@ -163,7 +163,7 @@ class _MySharedState extends State<MyShared> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    storeMyData(Keys.boolKey, _boolVal);
+                    _storeValue(Keys.boolKey, _boolVal);
                     setState(() {
                       _boolVal = false;
                     });
@@ -189,7 +189,7 @@ class _MySharedState extends State<MyShared> {
                   )),
               OutlinedButton(
                   onPressed: () async {
-                    _boolVal = await showData(Keys.boolKey);
+                    _boolVal = await _getValue(Keys.boolKey);
                     setState(() {});
                   },
                   child: Text('Show Bool')),
@@ -198,12 +198,12 @@ class _MySharedState extends State<MyShared> {
 
           TextButton(
               onPressed: () {
-                storeMyData("listStr", ["A", "B", "C"]);
+                _storeValue("listStr", ["A", "B", "C"]);
               },
               child: Text("Save List")),
           CupertinoButton(
             onPressed: () {
-              showData("int");
+              _getValue("int");
             },
             child: Text(" Show value"),
           )
@@ -212,7 +212,7 @@ class _MySharedState extends State<MyShared> {
     );
   }
 
-  void storeMyData(String variable, data) async {
+  void _storeValue(String variable, data) async {
     var pref = await SharedPreferences.getInstance();
     if (data is bool) {
       pref.setBool(variable, data);
@@ -232,7 +232,7 @@ class _MySharedState extends State<MyShared> {
     print("Saved $data in  $variable");
   }
 
-  showData(data) async {
+  _getValue(data) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     dynamic a;
     a = pref.get(data);
