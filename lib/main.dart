@@ -20,6 +20,7 @@ class _MySharedState extends State<MyShared> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xff2E0249),
         title: Text("Shared Preferences"),
       ),
       body: Center(
