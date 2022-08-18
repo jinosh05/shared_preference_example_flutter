@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main(List<String> args) {
-  runApp(MaterialApp(
+  var outlineInputBorder = OutlineInputBorder(
+    borderSide: BorderSide(
+      color: Color(0xffA91079),
+    ),
+  );
+  runApp(
+    MaterialApp(
       home: MyShared(),
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -15,14 +21,13 @@ void main(List<String> args) {
           ),
         )),
         inputDecorationTheme: InputDecorationTheme(
-          isDense: true,
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Color(0xffA91079),
-            ),
-          ),
-        ),
-      )));
+            isDense: true,
+            border: outlineInputBorder,
+            enabledBorder: outlineInputBorder,
+            focusedBorder: outlineInputBorder),
+      ),
+    ),
+  );
 }
 
 class MyShared extends StatefulWidget {
@@ -35,6 +40,9 @@ class MyShared extends StatefulWidget {
 class _MySharedState extends State<MyShared> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double inputWidth = width * 0.4;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff2E0249),
@@ -47,6 +55,10 @@ class _MySharedState extends State<MyShared> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               OutlinedButton(onPressed: () {}, child: Text('Save String')),
+              SizedBox(
+                width: inputWidth,
+                child: TextField(),
+              )
             ],
           ),
           TextButton(
