@@ -4,8 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main(List<String> args) {
   runApp(MaterialApp(
-    home: MyShared(),
-  ));
+      home: MyShared(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        inputDecorationTheme: InputDecorationTheme(
+          isDense: true,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color(0xffA91079),
+            ),
+          ),
+        ),
+      )));
 }
 
 class MyShared extends StatefulWidget {
@@ -23,67 +33,71 @@ class _MySharedState extends State<MyShared> {
         backgroundColor: Color(0xff2E0249),
         title: Text("Shared Preferences"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            TextButton(
-                onPressed: () {
-                  storeMyData("str", "My String");
-                },
-                child: Text("Save String")),
-            OutlinedButton(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(onPressed: () {}, child: Text('Save String')),
+            ],
+          ),
+          TextButton(
               onPressed: () {
-                showData("str");
+                storeMyData("str", "My String");
               },
-              child: Text(" Show value"),
-            ),
-            TextButton(
-                onPressed: () {
-                  storeMyData("int", 25);
-                },
-                child: Text("Save Integer")),
-            ElevatedButton(
+              child: Text("Save String")),
+          OutlinedButton(
+            onPressed: () {
+              showData("str");
+            },
+            child: Text(" Show value"),
+          ),
+          TextButton(
               onPressed: () {
-                showData("int");
+                storeMyData("int", 25);
               },
-              child: Text(" Show value"),
-            ),
-            TextButton(
-                onPressed: () {
-                  storeMyData("double", 99.99);
-                },
-                child: Text("Save Double")),
-            MaterialButton(
+              child: Text("Save Integer")),
+          ElevatedButton(
+            onPressed: () {
+              showData("int");
+            },
+            child: Text(" Show value"),
+          ),
+          TextButton(
               onPressed: () {
-                showData("double");
+                storeMyData("double", 99.99);
               },
-              child: Text(" Show value"),
-            ),
-            TextButton(
-                onPressed: () {
-                  storeMyData("bool", true);
-                },
-                child: Text("Save Bool")),
-            RawMaterialButton(
+              child: Text("Save Double")),
+          MaterialButton(
+            onPressed: () {
+              showData("double");
+            },
+            child: Text(" Show value"),
+          ),
+          TextButton(
               onPressed: () {
-                showData("bool");
+                storeMyData("bool", true);
               },
-              child: Text(" Show value"),
-            ),
-            TextButton(
-                onPressed: () {
-                  storeMyData("listStr", ["A", "B", "C"]);
-                },
-                child: Text("Save List")),
-            CupertinoButton(
+              child: Text("Save Bool")),
+          RawMaterialButton(
+            onPressed: () {
+              showData("bool");
+            },
+            child: Text(" Show value"),
+          ),
+          TextButton(
               onPressed: () {
-                showData("int");
+                storeMyData("listStr", ["A", "B", "C"]);
               },
-              child: Text(" Show value"),
-            )
-          ],
-        ),
+              child: Text("Save List")),
+          CupertinoButton(
+            onPressed: () {
+              showData("int");
+            },
+            child: Text(" Show value"),
+          )
+        ],
       ),
     );
   }
