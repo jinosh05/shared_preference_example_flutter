@@ -7,6 +7,13 @@ void main(List<String> args) {
       home: MyShared(),
       theme: ThemeData(
         brightness: Brightness.dark,
+        outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(
+          primary: Color(0xffF806CC),
+          side: BorderSide(
+            color: Color(0xffA91079),
+          ),
+        )),
         inputDecorationTheme: InputDecorationTheme(
           isDense: true,
           border: OutlineInputBorder(
