@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preference_example/keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main(List<String> args) {
@@ -69,14 +70,24 @@ class _MySharedState extends State<MyShared> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              OutlinedButton(onPressed: () {}, child: Text('Save String')),
+              OutlinedButton(
+                  onPressed: () {
+                    storeMyData(Keys.stringKey, _controllers[0].text);
+                    _controllers[0].clear();
+                  },
+                  child: Text('Save String')),
               SizedBox(
                 width: inputWidth,
                 child: TextField(
                   controller: _controllers[0],
                 ),
               ),
-              ElevatedButton(onPressed: () {}, child: Text('Show String')),
+              ElevatedButton(
+                  onPressed: () async {
+                    _controllers[0].text = await showData(Keys.stringKey);
+                    setState(() {});
+                  },
+                  child: Text('Show String')),
             ],
           ),
           TextButton(
@@ -159,10 +170,11 @@ class _MySharedState extends State<MyShared> {
     print("Saved $data in  $variable");
   }
 
-  void showData(data) async {
+  showData(data) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     dynamic a;
     a = pref.get(data);
     print(a);
+    return a;
   }
 }
