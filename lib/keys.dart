@@ -1,4 +1,6 @@
 class Keys {
+  static final String strListKey = "str_list_key";
+
   static final String stringKey = "string_key";
 
   static final String boolKey = "bool_key";

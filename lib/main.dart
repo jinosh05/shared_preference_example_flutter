@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preference_example/keys.dart';
@@ -17,14 +16,14 @@ void main(List<String> args) {
         brightness: Brightness.dark,
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
-          primary: Color(0xffF806CC),
+          foregroundColor: Color(0xffF806CC),
           side: BorderSide(
             color: Color(0xffA91079),
           ),
         )),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-          primary: Color(0xff2E0249),
+          foregroundColor: Color(0xff2E0249),
         )),
         inputDecorationTheme: InputDecorationTheme(
             isDense: true,
@@ -51,7 +50,7 @@ class _MySharedState extends State<MyShared> {
   void initState() {
     super.initState();
     _controllers = List.generate(
-      5,
+      9,
       (index) => TextEditingController(),
     );
   }
@@ -196,17 +195,47 @@ class _MySharedState extends State<MyShared> {
             ],
           ),
 
-          TextButton(
-              onPressed: () {
-                _storeValue("listStr", ["A", "B", "C"]);
-              },
-              child: Text("Save List")),
-          CupertinoButton(
-            onPressed: () {
-              _getValue("int");
-            },
-            child: Text(" Show value"),
-          )
+          //
+          // List of String
+          //
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              for (var i = 0; i < 4; i++)
+                SizedBox(
+                  width: inputWidth / 2,
+                  child: TextField(
+                    controller: _controllers[i + 5],
+                  ),
+                ),
+            ],
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                  onPressed: () {
+                    List<String> _strList = [];
+                    for (var i = 0; i < 4; i++) {
+                      _strList.add(_controllers[i + 5].text);
+                      _controllers[i + 5].clear();
+                    }
+                    _storeValue(Keys.strListKey, _strList);
+                  },
+                  child: Text('Save List')),
+              ElevatedButton(
+                  onPressed: () async {
+                    List<String> _strList = await _getValue(Keys.strListKey);
+
+                    for (var i = 0; i < 4; i++) {
+                      _controllers[i + 5].text = _strList[i];
+                    }
+                    setState(() {});
+                  },
+                  child: Text('Show List')),
+            ],
+          ),
         ],
       ),
     );
