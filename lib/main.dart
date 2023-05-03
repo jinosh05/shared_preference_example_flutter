@@ -4,26 +4,26 @@ import 'package:shared_preference_example/keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main(List<String> args) {
-  var outlineInputBorder = OutlineInputBorder(
+  var outlineInputBorder = const OutlineInputBorder(
     borderSide: BorderSide(
       color: Color(0xffA91079),
     ),
   );
   runApp(
     MaterialApp(
-      home: MyShared(),
+      home: const MyShared(),
       theme: ThemeData(
         brightness: Brightness.dark,
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
-          foregroundColor: Color(0xffF806CC),
-          side: BorderSide(
+          foregroundColor: const Color(0xffF806CC),
+          side: const BorderSide(
             color: Color(0xffA91079),
           ),
         )),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-          foregroundColor: Color(0xff2E0249),
+          foregroundColor: const Color(0xff2E0249),
         )),
         inputDecorationTheme: InputDecorationTheme(
             isDense: true,
@@ -36,13 +36,13 @@ void main(List<String> args) {
 }
 
 class MyShared extends StatefulWidget {
-  MyShared({Key? key}) : super(key: key);
+  const MyShared({Key? key}) : super(key: key);
 
   @override
-  _MySharedState createState() => _MySharedState();
+  MySharedState createState() => MySharedState();
 }
 
-class _MySharedState extends State<MyShared> {
+class MySharedState extends State<MyShared> {
   late List<TextEditingController> _controllers;
   bool _boolVal = true;
 
@@ -62,8 +62,8 @@ class _MySharedState extends State<MyShared> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffA91079),
-        title: Text("Shared Preferences"),
+        backgroundColor: const Color(0xffA91079),
+        title: const Text("Shared Preferences"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -79,7 +79,7 @@ class _MySharedState extends State<MyShared> {
                     _storeValue(Keys.stringKey, _controllers[0].text);
                     _controllers[0].clear();
                   },
-                  child: Text('Save String')),
+                  child: const Text('Save String')),
               SizedBox(
                 width: inputWidth,
                 child: TextField(
@@ -91,7 +91,7 @@ class _MySharedState extends State<MyShared> {
                     _controllers[0].text = await _getValue(Keys.stringKey);
                     setState(() {});
                   },
-                  child: Text('Show String')),
+                  child: const Text('Show String')),
             ],
           ),
 
@@ -106,7 +106,7 @@ class _MySharedState extends State<MyShared> {
                     _storeValue(Keys.intKey, _controllers[1].text);
                     _controllers[1].clear();
                   },
-                  child: Text('Save Integer')),
+                  child: const Text('Save Integer')),
               SizedBox(
                 width: inputWidth,
                 child: TextField(
@@ -119,7 +119,7 @@ class _MySharedState extends State<MyShared> {
                     _controllers[1].text = await _getValue(Keys.intKey);
                     setState(() {});
                   },
-                  child: Text('Show Integer')),
+                  child: const Text('Show Integer')),
             ],
           ),
 
@@ -134,7 +134,7 @@ class _MySharedState extends State<MyShared> {
                     _storeValue(Keys.doubleKey, _controllers[2].text);
                     _controllers[2].clear();
                   },
-                  child: Text('Save Double')),
+                  child: const Text('Save Double')),
               SizedBox(
                 width: inputWidth,
                 child: TextField(
@@ -150,7 +150,7 @@ class _MySharedState extends State<MyShared> {
                     _controllers[2].text = await _getValue(Keys.doubleKey);
                     setState(() {});
                   },
-                  child: Text('Show Double')),
+                  child: const Text('Show Double')),
             ],
           ),
 
@@ -167,7 +167,7 @@ class _MySharedState extends State<MyShared> {
                       _boolVal = false;
                     });
                   },
-                  child: Text('Save Bool')),
+                  child: const Text('Save Bool')),
               SizedBox(
                   width: inputWidth,
                   child: Row(
@@ -175,7 +175,7 @@ class _MySharedState extends State<MyShared> {
                     children: [
                       Checkbox(
                         fillColor: MaterialStateProperty.all(Colors.white),
-                        checkColor: Color(0xff2E0249),
+                        checkColor: const Color(0xff2E0249),
                         value: _boolVal,
                         onChanged: (value) {
                           setState(() {
@@ -191,7 +191,7 @@ class _MySharedState extends State<MyShared> {
                     _boolVal = await _getValue(Keys.boolKey);
                     setState(() {});
                   },
-                  child: Text('Show Bool')),
+                  child: const Text('Show Bool')),
             ],
           ),
 
@@ -216,24 +216,24 @@ class _MySharedState extends State<MyShared> {
             children: [
               OutlinedButton(
                   onPressed: () {
-                    List<String> _strList = [];
+                    List<String> strList = [];
                     for (var i = 0; i < 4; i++) {
-                      _strList.add(_controllers[i + 5].text);
+                      strList.add(_controllers[i + 5].text);
                       _controllers[i + 5].clear();
                     }
-                    _storeValue(Keys.strListKey, _strList);
+                    _storeValue(Keys.strListKey, strList);
                   },
-                  child: Text('Save List')),
+                  child: const Text('Save List')),
               ElevatedButton(
                   onPressed: () async {
-                    List<String> _strList = await _getValue(Keys.strListKey);
+                    List<String> strList = await _getValue(Keys.strListKey);
 
                     for (var i = 0; i < 4; i++) {
-                      _controllers[i + 5].text = _strList[i];
+                      _controllers[i + 5].text = strList[i];
                     }
                     setState(() {});
                   },
-                  child: Text('Show List')),
+                  child: const Text('Show List')),
             ],
           ),
         ],

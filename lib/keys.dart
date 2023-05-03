@@ -1,13 +1,13 @@
 class Keys {
-  static final String strListKey = "str_list_key";
+  static const String strListKey = "str_list_key";
 
-  static final String stringKey = "string_key";
+  static const String stringKey = "string_key";
 
-  static final String boolKey = "bool_key";
+  static const String boolKey = "bool_key";
 
-  static final String listKey = "ls_key";
+  static const String listKey = "ls_key";
 
-  static final String doubleKey = "double_key";
+  static const String doubleKey = "double_key";
 
-  static final String intKey = "int_key";
+  static const String intKey = "int_key";
 }
