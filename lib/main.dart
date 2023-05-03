@@ -258,14 +258,14 @@ class MySharedState extends State<MyShared> {
     if (data is List<String>) {
       pref.setStringList(variable, data);
     }
-    print("Saved $data in  $variable");
+    debugPrint("Saved $data in  $variable");
   }
 
   _getValue(data) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     dynamic a;
     a = pref.get(data);
-    print(a);
+    debugPrint(a);
     return a;
   }
 }
