@@ -233,7 +233,9 @@ class MySharedState extends State<MyShared> {
                     }
                     setState(() {});
                   },
-                  child: const Text('Show List')),
+                  child: const Text(
+                    'Show List',
+                  )),
             ],
           ),
         ],
